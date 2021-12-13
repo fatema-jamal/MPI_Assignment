@@ -64,17 +64,22 @@ int main(void)
 	getInput(my_Rank,comm_size,&angle,&accuracy);
 
 	
-	local_sum = calcCos(angle,accuracy,my_Rank,comm_size);
+	
+	t1 = MPI_Wtime();
+	local_sum = calcCos(angle, accuracy, my_Rank, comm_size);
 
 	MPI_Reduce(&local_sum, &result, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+	t2 = MPI_Wtime();
 
-
+	time = t2 - t1;
 	if (my_Rank == 0) {
 		printf("With %d accuracy \n", accuracy);
 		fflush(stdout);
-		printf("the result of cos(%f)=%f \n",angle ,result);
+		printf("the result of cos(%f)=%f \n", angle, result);
 		fflush(stdout);
+		printf("Time of exexction in parallel code : %f", time);
+
 	}
-  MPI_Finalize();
+	MPI_Finalize();
 
 }
