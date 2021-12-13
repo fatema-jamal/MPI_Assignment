@@ -58,6 +58,7 @@ int main(void)
 	int comm_size;
 	double local_sum;
 	double result;
+	double t1 , t2 ,time;
 	MPI_Init(NULL, NULL);
 	MPI_Comm_rank(MPI_COMM_WORLD, &my_Rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
